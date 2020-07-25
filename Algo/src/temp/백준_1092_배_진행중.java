@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class 백준_1092_배 {
+public class 백준_1092_배_진행중 {
 	
 	static int N;
 	static int [] krain;

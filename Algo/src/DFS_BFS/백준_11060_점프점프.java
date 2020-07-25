@@ -1,4 +1,4 @@
-package temp;
+package DFS_BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
