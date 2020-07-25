@@ -41,19 +41,23 @@ public class 백준_1504_특정한최단경로 {
 	static final int MAX = 98765432;
 	public static int Dijkstra(int start, int end) {
 		PriorityQueue<Dot> Q = new PriorityQueue<Dot>();
+		int [] dist = new int [N + 1];
+		for (int i = 0; i < dist.length; i++) {
+			dist[i] = Integer.MAX_VALUE;
+		}
 		
-		Q.offer(graph[start]);
-		
+		Q.offer(graph[start].get(0));
+		dist[start] = 0;
 		while(!Q.isEmpty()) {
 			Dot temp = Q.poll();
 			
-			for (int i = 0; i < temp.size(); i++) {
-				int to = graph[temp].get(i).arrow;
-				int weight = graph[temp].get(i).weight;
+			for (int i = 1; i < graph[temp.index].size(); i++) {
+				int to = graph[temp.index].get(i).index;
+				int weight = graph[temp.index].get(i).weight;
 				
-				if(dist[temp] + weight < dist[to]) {
-					dist[to] = dist[temp] + weight;
-					Q.offer(to);
+				if(dist[temp.index] + weight < dist[to]) {
+					dist[to] = dist[temp.index] + weight ;
+					Q.offer(new Dot(to, weight, dist[to]));
 				}
 				
 			}
@@ -71,7 +75,8 @@ public class 백준_1504_특정한최단경로 {
 		graph = new ArrayList[N+1];
 		
 		for (int i = 1; i <= N; i++) {
-			graph[i] = new ArrayList<Dot>();	
+			graph[i] = new ArrayList<Dot>();
+			graph[i].add(new Dot(i, 0, 0));
 		}
 		
 		for (int i = 0; i < E; i++) {
@@ -80,6 +85,7 @@ public class 백준_1504_특정한최단경로 {
 			int to = Integer.parseInt(st.nextToken());
 			int weight = Integer.parseInt(st.nextToken());
 			graph[index].add(new Dot(to, weight, 0));
+			graph[to].add(new Dot(index, weight, 0));
 		}
 		st = new StringTokenizer(br.readLine().trim(), " ");
 		int a = Integer.parseInt(st.nextToken());
@@ -91,16 +97,16 @@ public class 백준_1504_특정한최단경로 {
 		int AToEnd = Dijkstra(a, N);
 		int BToEnd = Dijkstra(b, N);
 		int startToEnd = Dijkstra(1, N);
-		System.out.println("1 to a  " + startToA);
-		System.out.println("1 to b  " + startToB);
-		System.out.println("a to b  " + AToB);
-		System.out.println("a to n  " + AToEnd);
-		System.out.println("b to n  " + BToEnd);
+//		System.out.println("1 to a  " + startToA);
+//		System.out.println("1 to b  " + startToB);
+//		System.out.println("a to b  " + AToB);
+//		System.out.println("a to n  " + AToEnd);
+//		System.out.println("b to n  " + BToEnd);
 		int resultA = startToA + AToB + BToEnd;
 		int resultB = startToB + AToB + AToEnd;
 		
-		System.out.println(resultA);
-		System.out.println(resultB);
+//		System.out.println(resultA);
+//		System.out.println(resultB);
 		ans = Math.min(resultA, resultB);
 		if(ans > 12345678 ) {
 			ans = -1;
