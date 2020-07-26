@@ -32,7 +32,7 @@ public class 백준_17142_연구소3 {
 	public static void dfs(int depth, int point) {
 		if(depth >= M) {
 			int result = bfs();
-
+			
 			if(result == -1) {
 				return;
 			}
